@@ -53,7 +53,7 @@ export default function BennysShop({ visible, onClose }: Props) {
       // case 'PERFORMACE':
       case 'CONSUMABLE':
         return (
-          <div className='w-[100%] h-[100%] grid grid-cols-5 overflow-auto p-4  ' >
+          <div className='w-[100%] h-[100%] grid grid-cols-5 overflow-auto p-4 gap-3  ' >
             {BENNYS_SHOP_ITEMS.consumableParts.map((item, index) => {
               return (
                 <div key={index} className='w-[100%] h-[300px]  flex flex-col items-center bg-[#252525] rounded-md gap-3 relative ' >
