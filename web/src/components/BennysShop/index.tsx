@@ -56,7 +56,7 @@ export default function BennysShop({ visible, onClose }: Props) {
           <div className='w-[100%] h-[100%] grid grid-cols-5 overflow-auto p-4 gap-3  ' >
             {BENNYS_SHOP_ITEMS.consumableParts.map((item, index) => {
               return (
-                <div key={index} className='w-[100%] h-[300px]  flex flex-col items-center bg-[#252525] rounded-md gap-3 relative ' >
+                <div key={index} className='w-[100%] h-[300px]  flex flex-col items-center bg-[#202938] rounded-md gap-3 relative ' >
                   <img
                     src={item.photo}
                     className='w-[90px] h-[90px] mt-3 '
@@ -71,7 +71,7 @@ export default function BennysShop({ visible, onClose }: Props) {
                   </h1>
 
                   <h1 className='text-[18px] text-white font-semibold  ' >
-                    Price {item.price} GNE
+                    Price {item.price} Nort Coin
                   </h1>
 
                   <button
@@ -89,7 +89,7 @@ export default function BennysShop({ visible, onClose }: Props) {
           <div className='w-[100%] h-[100%] flex flex-col items-center overflow-auto p-4 gap-2 ' >
             {cart.map((item, index) => {
               return (
-                <div key={index} className='w-[100%] h-[110px] flex items-center bg-[#252525] rounded-sm gap-3 relative ' >
+                <div key={index} className='w-[100%] h-[110px] flex items-center bg-[#202938] rounded-sm gap-3 relative ' >
                   <div className='w-[20%] h-[100%] flex items-center pl-3   ' >
                     <img
                       src={item.photo}
@@ -104,7 +104,7 @@ export default function BennysShop({ visible, onClose }: Props) {
                     </h1>
 
                     <h1 className='text-[18px] text-white font-semibold  ' >
-                      Price {item.price} GNE
+                      Price {item.price} Nort Coin
                     </h1>
                   </div>
 
@@ -124,8 +124,8 @@ export default function BennysShop({ visible, onClose }: Props) {
   }
 
   return visible && (
-    <div className="w-[80%] h-[85%] bg-[#1B1745] rounded-md z-50   " >
-      <div className="w-[100%] h-[30px] bg-[#000] flex items-center justify-between pl-2 rounded-t-md mb-7 p-2 " >
+    <div className="w-[80%] h-[85%] bg-[#121828] rounded-md z-50   " >
+      <div className="w-[100%] h-[30px] bg-[#347eff] flex items-center justify-between pl-2 rounded-t-md mb-7 p-2 " >
         <h1 className="text-white font-semibold  " >
           Bennys Shop
         </h1>

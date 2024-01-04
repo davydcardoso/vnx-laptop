@@ -3,24 +3,41 @@ local tabletObject, isInTablet, VehicleStoled = nil, false, nil
 local function toggleNuiFrame(shouldShow)
   SetNuiFocus(shouldShow, shouldShow)
 
-  print("vnx-laptop:VerifyUserJobHnO => Client Process => hnoEmployee = false")
   SendReactMessage('setVisible', shouldShow)
 end
+
+RegisterNetEvent("vnx-laptop:ClientEvent:Client")
+AddEventHandler("vnx-laptop:ClientEvent:Client", function()
+  toggleNuiFrame(false)
+  -- debugPrint('Hide NUI frame')
+
+
+  DeleteEntity(tabletObject)
+  ClearPedTasks(PlayerPedId())
+end)
 
 RegisterNetEvent("vnx-laptop:openTablet")
 AddEventHandler("vnx-laptop:openTablet", function()
   toggleNuiFrame(true)
-  debugPrint('Show NUI frame')
+  -- debugPrint('Show NUI frame')
 
   local Employed = exports["str-business"]:IsEmployedAt("hno_imports")
   local existsVpnForBennys = exports["str-inventory"]:hasEnoughOfItem("vpnxj", 1, false)
-
-  print("vnx-laptop:openTablet => Client Process => HnO Employed At => " .. tostring(Employed))
+  local existsPhoneDongleUser = exports["str-inventory"]:hasEnoughOfItem("racingusb1", 1, false)
+  local existsPuppetUsbDevice = exports["str-inventory"]:hasEnoughOfItem("puppet_usbdevice", 1, false)
+  local existsExistsPhoneWeed = exports["str-inventory"]:hasEnoughOfItem("stolennokia", 1, false)
 
   if Employed then
-    SendReactMessage("ButtonsVisibilityContext:setBennysVisible", existsVpnForBennys)
-    -- SendReactMessage("ButtonsVisibilityContext:setBoostingVisible", false)
     SendReactMessage("ButtonsVisibilityContext:setHnoImpostsVisible", true)
+  end
+
+  SendReactMessage("ButtonsVisibilityContext:setBennysVisible", existsVpnForBennys)
+  SendReactMessage("ButtonsVisibilityContext:setRacingVisible", existsPhoneDongleUser)
+  SendReactMessage("ButtonsVisibilityContext:setWeedAppVisible", existsExistsPhoneWeed)
+  SendReactMessage("ButtonsVisibilityContext:setBoostingVisible", existsPhoneDongleUser)
+
+  if (existsPhoneDongleUser) then
+    SendReactMessage("BoostingContext:setPlayerIsPuppet", existsPuppetUsbDevice)
   end
 
   doTablet()
@@ -38,14 +55,29 @@ end)
 
 function doTablet()
   local playerPed = PlayerPedId()
-  local dict = "amb@world_human_seat_wall_tablet@female@base"
+  local dict = "amb@code_human_in_bus_passenger_idles@female@tablet@base"
 
   RequestAnimDict(dict)
 
   if tabletObject == nil then
     tabletObject = CreateObject(GetHashKey('prop_cs_tablet'), GetEntityCoords(playerPed), 1, 1, 1)
-    AttachEntityToEntity(tabletObject, playerPed, GetPedBoneIndex(playerPed, 28422), 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 1, 1,
-      0, 1, 0, 1)
+    AttachEntityToEntity(
+      tabletObject,
+      playerPed,
+      GetPedBoneIndex(playerPed, 28422),
+      0.0,
+      0.0,
+      0.03,
+      0.0,
+      0.0,
+      0.0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      1
+    )
   end
 
   while not HasAnimDictLoaded(dict) do Citizen.Wait(100) end

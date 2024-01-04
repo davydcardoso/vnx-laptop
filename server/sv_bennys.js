@@ -16,26 +16,89 @@ AddEventHandler(
       return;
     }
 
-    const items = data.cart;
-
-    for (let index = 0; index < items.length; index++) {
-      const item = items[index];
-      const itemId = item.id;
-
+    const userCrypto = await new Promise((resolve) => {
       exports.oxmysql.execute(
-        "INSERT INTO bennys_requests (PlayerStateId, ItemId) VALUES(@playerId, @itemId)",
-        {
-          playerId: cid,
-          itemId: itemId,
+        "SELECT * FROM user_crypto uc WHERE cryptocid = @playerId AND cryptoid = 2",
+        { playerId: cid },
+        function (data) {
+          resolve(data[0]);
         }
       );
+    });
+
+    if (userCrypto == undefined || userCrypto == null || !userCrypto) {
+      TriggerClientEvent(
+        "DoLongHudText",
+        src,
+        "You don't have enough Nort Coin",
+        2
+      );
+      return;
     }
+
+    const playerGNEAmount = userCrypto.cryptoamount;
+
+    const items = data.cart;
+    let priceTotal = 0;
+
+    for await (const item of items) {
+      priceTotal = priceTotal + item.price;
+    }
+
+    if (playerGNEAmount < priceTotal) {
+      TriggerClientEvent(
+        "DoLongHudText",
+        src,
+        "You don't have enough Nort Coin, check you Wallet",
+        2
+      );
+      return;
+    }
+
+    for await (const item of items) {
+      const itemId = item.id;
+      const itemPrice = item.price;
+      const itemAmount = 1;
+
+      await new Promise((resolve) => {
+        exports.oxmysql.execute(
+          "INSERT INTO bennys_requests (PlayerStateId, ItemId, ItemPrice, ItemAmount) VALUES(@playerId, @itemId, @itemPrice, @itemAmount)",
+          {
+            playerId: cid,
+            itemId: itemId,
+            itemPrice: itemPrice,
+            itemAmount: itemAmount,
+          },
+          function () {
+            resolve();
+          }
+        );
+      });
+    }
+
+    await new Promise((resolve) => {
+      exports.oxmysql.execute(
+        "UPDATE user_crypto SET cryptoamount = @cryptoAmount WHERE cryptoid = 2 AND cryptocid = @playerId",
+        {
+          cryptoAmount: playerGNEAmount - priceTotal,
+          playerId: cid,
+        },
+        function () {
+          resolve();
+        }
+      );
+    });
 
     TriggerClientEvent(
       "DoLongHudText",
       src,
       "Products purchased successfully!!!",
       0
+    );
+
+    TriggerClientEvent(
+      "vnx-laptop:BennysShopPurchaseItems:LocationPurchase",
+      src
     );
   }
 );
@@ -47,6 +110,7 @@ AddEventHandler(
     const src = source;
 
     const cid = exports["str-base"].getChar(src, "id");
+
 
     await exports.oxmysql.execute(
       "SELECT * FROM bennys_requests WHERE PlayerStateId = @playerId",

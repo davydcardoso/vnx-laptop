@@ -38,7 +38,7 @@ export default function HnoImpotsPage({ visible, onClose }: Props) {
   return visible && (
     <>
       <div className="w-[70%] h-[80%] bg-[#121828] rounded-md z-50   " >
-        <div className="w-[100%] h-[30px] bg-[#000] flex items-center justify-between pl-2 rounded-t-md mb-7 p-2  " >
+        <div className="w-[100%] h-[30px] bg-[#347eff] flex items-center justify-between pl-2 rounded-t-md mb-7 p-2  " >
           <h1 className="text-white font-semibold  " >
             HnO Imports
           </h1>
@@ -61,7 +61,7 @@ export default function HnoImpotsPage({ visible, onClose }: Props) {
                   </h1>
                 </div>
 
-                <h1 className="text-white text-[20px] font-bold    " >
+                <h1 className="text-white text-[20px] font-bold text-center    " >
                   {car.name}
                 </h1>
 

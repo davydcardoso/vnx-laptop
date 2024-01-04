@@ -7,12 +7,12 @@ AddEventHandler("vnx-laptop:SaleVehicleForPlayer:ServerEvent", function(stateId,
   -- print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => Player Comprador => " .. playerState)
   -- print("Player Comprador => " .. playerState or "Null")
 
-  print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. stateId)
-  print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.id)
-  print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.class)
-  print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.name)
-  print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.stock)
-  print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.price)
+  -- print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. stateId)
+  -- print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.id)
+  -- print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.class)
+  -- print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.name)
+  -- print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.stock)
+  -- print("vnx-laptop:SaleVehicleForPlayer:ServerEvent => " .. selectedCar.price)
 
   -- local user = exports["str-base"]:getModule("Player"):GetUser(src)
   -- local characterId = user:getCurrentCharacter().id

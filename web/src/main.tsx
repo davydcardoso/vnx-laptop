@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { VisibilityProvider } from './providers/VisibilityProvider';
 
 import App from './components/App';
+
 import ButtonsVisibilityProvider from './contexts/ButtonsVisibilityContexts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
